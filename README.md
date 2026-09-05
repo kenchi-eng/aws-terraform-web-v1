@@ -46,3 +46,31 @@ terraform destroy
 - `.tfstate`、アクセスキー、秘密鍵はGitHubへコミットしません。
 - SSH（22番）はインターネットへ開放しません。
 - v1では動作確認のためHTTPを公開しています。HTTPS、ALB、Auto Scalingは次版で追加予定です。
+
+## 構成図
+
+```mermaid
+flowchart TD
+    Internet[Internet] --> IGW[Internet Gateway]
+
+    subgraph VPC["VPC 10.0.0.0/16"]
+        IGW --> RT[Public Route Table]
+        RT --> Public1a["Public Subnet 1a<br/>10.0.1.0/24"]
+        RT --> Public1c["Public Subnet 1c<br/>10.0.2.0/24"]
+        Public1a --> EC2["EC2<br/>Amazon Linux 2023 + Apache"]
+        Private1a["Private Subnet 1a<br/>10.0.11.0/24"]
+        Private1c["Private Subnet 1c<br/>10.0.12.0/24"]
+    end
+```
+
+## 動作確認
+
+### Terraformによる再構築後のHTTP表示
+
+![Terraformで構築したWebサーバー](docs/web-page.png)
+
+### 手動構築時のSession Manager接続確認
+
+SSHポートを開放せず、Systems Manager Session Manager経由で接続し、Apacheの応答を確認しました。
+
+![Session Managerでの動作確認](docs/session-manager.png)
