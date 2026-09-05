@@ -67,10 +67,10 @@ flowchart TD
 
 ### Terraformによる再構築後のHTTP表示
 
-![Terraformで構築したWebサーバー](docs/web-page.png)
+![Terraformで構築したWebサーバー](docs/web-page.PNG)
 
 ### 手動構築時のSession Manager接続確認
 
 SSHポートを開放せず、Systems Manager Session Manager経由で接続し、Apacheの応答を確認しました。
 
-![Session Managerでの動作確認](docs/session-manager.png)
+![Session Managerでの動作確認](docs/session-manager.PNG)
